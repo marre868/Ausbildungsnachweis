@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Tagesbericht bearbeiten{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1 class="section-title">Tagesbericht</h1>
+    <p class="section-subtitle">Bericht erfassen, bearbeiten oder löschen.</p>
+
+    <form method="post" action="{{ url_for('add_submit') }}">
+      <div>
+        <label for="date">Datum (YYYY-MM-DD)</label>
+        <input id="date" name="date" type="date" value="{{ date_iso }}" required>
+      </div>
+
+      <div>
+        <label for="text">Was hast du gemacht?</label>
+        <textarea id="text" name="text" rows="10" placeholder="Kurzer, sachlicher Bericht">{{ text }}</textarea>
+        <div class="help-text">Tipp: Stichpunkte funktionieren genauso gut wie Fließtext.</div>
+      </div>
+
+      <label class="checkbox">
+        <input type="checkbox" name="delete_entry">
+        Eintrag löschen
+      </label>
+
+      <div class="toolbar">
+        <button class="button button-primary" type="submit">Speichern</button>
+        <a class="button button-secondary" href="{{ url_for('index', date=date_iso) }}">Abbrechen</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

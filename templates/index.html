@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Ausbildungsnachweis – Woche ab {{ monday }}{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1 class="section-title">Wochenausgabe (Mo–Fr)</h1>
+    <p class="section-subtitle">Woche ab Montag: <strong>{{ monday }}</strong></p>
+    <div class="toolbar">
+      <a class="button button-secondary" href="{{ url_for('index', date=prev_monday) }}">← Vorherige Woche</a>
+      <a class="button button-secondary" href="{{ url_for('index', date=next_monday) }}">Nächste Woche →</a>
+      <a class="button button-primary" href="{{ url_for('add_form') }}">+ Tagesbericht hinzufügen</a>
+      <a class="button button-secondary" href="{{ url_for('export_form', date=monday) }}">Export (DOCX/PDF)</a>
+    </div>
+  </section>
+
+  <section class="grid">
+    {% for day in week %}
+      <article class="card week-card">
+        <div>
+          <h2 class="section-title">{{ day.weekday }}</h2>
+          <div class="muted">{{ day.date_iso }}</div>
+        </div>
+        <pre class="entry-text">{{ day.text or "(kein Eintrag)" }}</pre>
+        <div>
+          <a class="button button-secondary" href="{{ url_for('add_form', date=day.date_iso) }}">Bearbeiten</a>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+{% endblock %}

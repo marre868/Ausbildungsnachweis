@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Ausbildungsnachweis{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-title">Ausbildungsnachweis</span>
+        <span class="brand-subtitle">Wochenübersicht &amp; Export</span>
+      </div>
+      <nav class="nav">
+        <a class="nav-link" href="{{ url_for('index') }}">Woche</a>
+        <a class="nav-link" href="{{ url_for('add_form') }}">Tagesbericht</a>
+        <a class="nav-link" href="{{ url_for('export_form') }}">Export</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert-stack" role="status" aria-live="polite">
+          {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Ausbildungsnachweis CLI – lokale Datenverwaltung.</span>
+    </div>
+  </footer>
+</body>
+</html>
