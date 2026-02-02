@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual Environments
+.venv/
+venv/
+
+# Application data (local only)
+data.json
+data/
+*.json
+
+# Generated exports
+exports/
+*.docx
+*.pdf
+
+# Environment / Secrets
+.env
+
+# Editor / OS files
+.vscode/
+.DS_Store
+Thumbs.db
