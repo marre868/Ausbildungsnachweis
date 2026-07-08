@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Ausbildungsnachweis exportieren{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1 class="section-title">Export (DOCX/PDF)</h1>
+    <p class="section-subtitle">Woche von <strong>{{ monday }}</strong> bis <strong>{{ friday }}</strong> · Ausbildungsjahr: <strong>{{ year }}</strong></p>
+
+    <form method="post" action="{{ url_for('export_submit') }}">
+      <div>
+        <label for="name">Name des Auszubildenden</label>
+        <input id="name" name="name" type="text" placeholder="Vorname Nachname" required>
+      </div>
+
+      <div>
+        <label for="monday">Woche ab (Montag)</label>
+        <input id="monday" name="monday" type="date" value="{{ monday }}" required>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">Woche prüfen</h2>
+        <p class="section-subtitle">Schnellcheck der Einträge vor dem Export.</p>
+        <div class="grid">
+          {% for day in week %}
+            <article class="card week-card">
+              <strong>{{ day.weekday }} ({{ day.date_iso }})</strong>
+              <pre class="entry-text">{{ day.text or "(kein Eintrag)" }}</pre>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="toolbar print-hide">
+        <button class="button button-primary" type="submit">Als PDF exportieren</button>
+        <a class="button button-secondary" href="{{ url_for('index', date=monday) }}">Zurück</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}
